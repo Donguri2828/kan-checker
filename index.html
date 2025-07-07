@@ -1,0 +1,64 @@
+<html lang="ja" data-theme="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <div class="field">
+          <textarea
+            class="textarea"
+            name="input-textarea"
+            id="input-textarea"
+            placeholder="&quot;管叶和&quot;をみつけます"
+          ></textarea>
+        </div>
+        <div
+          id="kudakanna-warning"
+          class="content has-text-centered is-large has-text-weight-bold"
+        >
+          <span>ふつうの文章です</span>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", (e) => {
+      const DANGER_TEXT_CLASS = "has-text-danger";
+      const SUCCESS_TEXT_CLASS = "has-text-success";
+      const kudakannaWarningDiv = document.getElementById("kudakanna-warning");
+      const textarea = document.getElementById("input-textarea");
+
+      textarea.addEventListener("input", (e) => {
+        const text = textarea.value;
+        const kanPattern = "菅叶和";
+        const kudaPattern = "管叶和";
+        const kanMatches = text.match(kanPattern);
+        const kudaMatches = text.match(kudaPattern);
+
+        const span = kudakannaWarningDiv.querySelector("span");
+        if (!!kudaMatches) {
+          kudakannaWarningDiv.classList.remove(SUCCESS_TEXT_CLASS);
+          kudakannaWarningDiv.classList.remove(DANGER_TEXT_CLASS);
+          kudakannaWarningDiv.classList.add(DANGER_TEXT_CLASS);
+          span.textContent = "くだかんなが含まれています";
+        } else if (!!kanMatches) {
+          kudakannaWarningDiv.classList.remove(SUCCESS_TEXT_CLASS);
+          kudakannaWarningDiv.classList.remove(DANGER_TEXT_CLASS);
+          kudakannaWarningDiv.classList.add(SUCCESS_TEXT_CLASS);
+          span.textContent = "全てかんかんなです";
+        } else {
+          kudakannaWarningDiv.classList.remove(SUCCESS_TEXT_CLASS);
+          kudakannaWarningDiv.classList.remove(DANGER_TEXT_CLASS);
+          span.textContent = "ふつうの文章です";
+        }
+      });
+    });
+  </script>
+</html>
