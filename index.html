@@ -38,8 +38,8 @@
 
       textarea.addEventListener("input", (e) => {
         const text = textarea.value;
-        const kanPattern = "菅叶和";
-        const kudaPattern = "管叶和";
+        const kanPattern = /菅\s*叶\s*和/;
+        const kudaPattern = /管\s*叶\s*和/;
         const kanMatches = text.match(kanPattern);
         const kudaMatches = text.match(kudaPattern);
 
